@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.MarketQuotaPeriodSummaryMapper">
+  <resultMap id="BaseResultMap" type="com.bean.MarketQuotaPeriodSummary">
+    <id column="F_id" jdbcType="INTEGER" property="id" />
+    <result column="F_merchant_id" jdbcType="VARCHAR" property="merchantId" />
+    <result column="F_merchant_name" jdbcType="VARCHAR" property="merchantName" />
+    <result column="F_agent_id_1g" jdbcType="VARCHAR" property="agentId1g" />
+    <result column="F_agent_id_1g_name" jdbcType="VARCHAR" property="agentId1gName" />
+    <result column="F_agent_id" jdbcType="VARCHAR" property="agentId" />
+    <result column="F_period" jdbcType="VARCHAR" property="period" />
+    <result column="F_quota_period_type" jdbcType="BIT" property="quotaPeriodType" />
+    <result column="F_period_begin_date" jdbcType="DATE" property="periodBeginDate" />
+    <result column="F_period_end_date" jdbcType="DATE" property="periodEndDate" />
+    <result column="F_activity_id" jdbcType="VARCHAR" property="activityId" />
+    <result column="F_bank_code" jdbcType="VARCHAR" property="bankCode" />
+    <result column="F_promoter_id" jdbcType="INTEGER" property="promoterId" />
+    <result column="F_sum_amount" jdbcType="BIGINT" property="sumAmount" />
+    <result column="F_sum_recharged_quota" jdbcType="BIGINT" property="sumRechargedQuota" />
+    <result column="F_quota_balance" jdbcType="BIGINT" property="quotaBalance" />
+    <result column="F_sum_bank_subsidy_fee" jdbcType="BIGINT" property="sumBankSubsidyFee" />
+    <result column="F_sum_quota_deduction" jdbcType="BIGINT" property="sumQuotaDeduction" />
+    <result column="F_sum_subsidy_disbursement" jdbcType="BIGINT" property="sumSubsidyDisbursement" />
+    <result column="F_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="F_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    F_id, F_merchant_id, F_merchant_name, F_agent_id_1g, F_agent_id_1g_name, F_agent_id, 
+    F_period, F_quota_period_type, F_period_begin_date, F_period_end_date, F_activity_id, 
+    F_bank_code, F_promoter_id, F_sum_amount, F_sum_recharged_quota, F_quota_balance, 
+    F_sum_bank_subsidy_fee, F_sum_quota_deduction, F_sum_subsidy_disbursement, F_create_time, 
+    F_update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.bean.MarketQuotaPeriodSummaryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_market_quota_period_summary
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_market_quota_period_summary
+    where F_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_market_quota_period_summary
+    where F_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bean.MarketQuotaPeriodSummaryExample">
+    delete from t_market_quota_period_summary
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bean.MarketQuotaPeriodSummary">
+    insert into t_market_quota_period_summary (F_id, F_merchant_id, F_merchant_name, 
+      F_agent_id_1g, F_agent_id_1g_name, F_agent_id, 
+      F_period, F_quota_period_type, F_period_begin_date, 
+      F_period_end_date, F_activity_id, F_bank_code, 
+      F_promoter_id, F_sum_amount, F_sum_recharged_quota, 
+      F_quota_balance, F_sum_bank_subsidy_fee, F_sum_quota_deduction, 
+      F_sum_subsidy_disbursement, F_create_time, F_update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{merchantId,jdbcType=VARCHAR}, #{merchantName,jdbcType=VARCHAR}, 
+      #{agentId1g,jdbcType=VARCHAR}, #{agentId1gName,jdbcType=VARCHAR}, #{agentId,jdbcType=VARCHAR}, 
+      #{period,jdbcType=VARCHAR}, #{quotaPeriodType,jdbcType=BIT}, #{periodBeginDate,jdbcType=DATE}, 
+      #{periodEndDate,jdbcType=DATE}, #{activityId,jdbcType=VARCHAR}, #{bankCode,jdbcType=VARCHAR}, 
+      #{promoterId,jdbcType=INTEGER}, #{sumAmount,jdbcType=BIGINT}, #{sumRechargedQuota,jdbcType=BIGINT}, 
+      #{quotaBalance,jdbcType=BIGINT}, #{sumBankSubsidyFee,jdbcType=BIGINT}, #{sumQuotaDeduction,jdbcType=BIGINT}, 
+      #{sumSubsidyDisbursement,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.MarketQuotaPeriodSummary">
+    insert into t_market_quota_period_summary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        F_id,
+      </if>
+      <if test="merchantId != null">
+        F_merchant_id,
+      </if>
+      <if test="merchantName != null">
+        F_merchant_name,
+      </if>
+      <if test="agentId1g != null">
+        F_agent_id_1g,
+      </if>
+      <if test="agentId1gName != null">
+        F_agent_id_1g_name,
+      </if>
+      <if test="agentId != null">
+        F_agent_id,
+      </if>
+      <if test="period != null">
+        F_period,
+      </if>
+      <if test="quotaPeriodType != null">
+        F_quota_period_type,
+      </if>
+      <if test="periodBeginDate != null">
+        F_period_begin_date,
+      </if>
+      <if test="periodEndDate != null">
+        F_period_end_date,
+      </if>
+      <if test="activityId != null">
+        F_activity_id,
+      </if>
+      <if test="bankCode != null">
+        F_bank_code,
+      </if>
+      <if test="promoterId != null">
+        F_promoter_id,
+      </if>
+      <if test="sumAmount != null">
+        F_sum_amount,
+      </if>
+      <if test="sumRechargedQuota != null">
+        F_sum_recharged_quota,
+      </if>
+      <if test="quotaBalance != null">
+        F_quota_balance,
+      </if>
+      <if test="sumBankSubsidyFee != null">
+        F_sum_bank_subsidy_fee,
+      </if>
+      <if test="sumQuotaDeduction != null">
+        F_sum_quota_deduction,
+      </if>
+      <if test="sumSubsidyDisbursement != null">
+        F_sum_subsidy_disbursement,
+      </if>
+      <if test="createTime != null">
+        F_create_time,
+      </if>
+      <if test="updateTime != null">
+        F_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantName != null">
+        #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId1g != null">
+        #{agentId1g,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId1gName != null">
+        #{agentId1gName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null">
+        #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="quotaPeriodType != null">
+        #{quotaPeriodType,jdbcType=BIT},
+      </if>
+      <if test="periodBeginDate != null">
+        #{periodBeginDate,jdbcType=DATE},
+      </if>
+      <if test="periodEndDate != null">
+        #{periodEndDate,jdbcType=DATE},
+      </if>
+      <if test="activityId != null">
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null">
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="promoterId != null">
+        #{promoterId,jdbcType=INTEGER},
+      </if>
+      <if test="sumAmount != null">
+        #{sumAmount,jdbcType=BIGINT},
+      </if>
+      <if test="sumRechargedQuota != null">
+        #{sumRechargedQuota,jdbcType=BIGINT},
+      </if>
+      <if test="quotaBalance != null">
+        #{quotaBalance,jdbcType=BIGINT},
+      </if>
+      <if test="sumBankSubsidyFee != null">
+        #{sumBankSubsidyFee,jdbcType=BIGINT},
+      </if>
+      <if test="sumQuotaDeduction != null">
+        #{sumQuotaDeduction,jdbcType=BIGINT},
+      </if>
+      <if test="sumSubsidyDisbursement != null">
+        #{sumSubsidyDisbursement,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bean.MarketQuotaPeriodSummaryExample" resultType="java.lang.Long">
+    select count(*) from t_market_quota_period_summary
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_market_quota_period_summary
+    <set>
+      <if test="record.id != null">
+        F_id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.merchantId != null">
+        F_merchant_id = #{record.merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchantName != null">
+        F_merchant_name = #{record.merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentId1g != null">
+        F_agent_id_1g = #{record.agentId1g,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentId1gName != null">
+        F_agent_id_1g_name = #{record.agentId1gName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentId != null">
+        F_agent_id = #{record.agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.period != null">
+        F_period = #{record.period,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quotaPeriodType != null">
+        F_quota_period_type = #{record.quotaPeriodType,jdbcType=BIT},
+      </if>
+      <if test="record.periodBeginDate != null">
+        F_period_begin_date = #{record.periodBeginDate,jdbcType=DATE},
+      </if>
+      <if test="record.periodEndDate != null">
+        F_period_end_date = #{record.periodEndDate,jdbcType=DATE},
+      </if>
+      <if test="record.activityId != null">
+        F_activity_id = #{record.activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCode != null">
+        F_bank_code = #{record.bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.promoterId != null">
+        F_promoter_id = #{record.promoterId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sumAmount != null">
+        F_sum_amount = #{record.sumAmount,jdbcType=BIGINT},
+      </if>
+      <if test="record.sumRechargedQuota != null">
+        F_sum_recharged_quota = #{record.sumRechargedQuota,jdbcType=BIGINT},
+      </if>
+      <if test="record.quotaBalance != null">
+        F_quota_balance = #{record.quotaBalance,jdbcType=BIGINT},
+      </if>
+      <if test="record.sumBankSubsidyFee != null">
+        F_sum_bank_subsidy_fee = #{record.sumBankSubsidyFee,jdbcType=BIGINT},
+      </if>
+      <if test="record.sumQuotaDeduction != null">
+        F_sum_quota_deduction = #{record.sumQuotaDeduction,jdbcType=BIGINT},
+      </if>
+      <if test="record.sumSubsidyDisbursement != null">
+        F_sum_subsidy_disbursement = #{record.sumSubsidyDisbursement,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null">
+        F_create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        F_update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_market_quota_period_summary
+    set F_id = #{record.id,jdbcType=INTEGER},
+      F_merchant_id = #{record.merchantId,jdbcType=VARCHAR},
+      F_merchant_name = #{record.merchantName,jdbcType=VARCHAR},
+      F_agent_id_1g = #{record.agentId1g,jdbcType=VARCHAR},
+      F_agent_id_1g_name = #{record.agentId1gName,jdbcType=VARCHAR},
+      F_agent_id = #{record.agentId,jdbcType=VARCHAR},
+      F_period = #{record.period,jdbcType=VARCHAR},
+      F_quota_period_type = #{record.quotaPeriodType,jdbcType=BIT},
+      F_period_begin_date = #{record.periodBeginDate,jdbcType=DATE},
+      F_period_end_date = #{record.periodEndDate,jdbcType=DATE},
+      F_activity_id = #{record.activityId,jdbcType=VARCHAR},
+      F_bank_code = #{record.bankCode,jdbcType=VARCHAR},
+      F_promoter_id = #{record.promoterId,jdbcType=INTEGER},
+      F_sum_amount = #{record.sumAmount,jdbcType=BIGINT},
+      F_sum_recharged_quota = #{record.sumRechargedQuota,jdbcType=BIGINT},
+      F_quota_balance = #{record.quotaBalance,jdbcType=BIGINT},
+      F_sum_bank_subsidy_fee = #{record.sumBankSubsidyFee,jdbcType=BIGINT},
+      F_sum_quota_deduction = #{record.sumQuotaDeduction,jdbcType=BIGINT},
+      F_sum_subsidy_disbursement = #{record.sumSubsidyDisbursement,jdbcType=BIGINT},
+      F_create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      F_update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.MarketQuotaPeriodSummary">
+    update t_market_quota_period_summary
+    <set>
+      <if test="merchantId != null">
+        F_merchant_id = #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantName != null">
+        F_merchant_name = #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId1g != null">
+        F_agent_id_1g = #{agentId1g,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId1gName != null">
+        F_agent_id_1g_name = #{agentId1gName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null">
+        F_agent_id = #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null">
+        F_period = #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="quotaPeriodType != null">
+        F_quota_period_type = #{quotaPeriodType,jdbcType=BIT},
+      </if>
+      <if test="periodBeginDate != null">
+        F_period_begin_date = #{periodBeginDate,jdbcType=DATE},
+      </if>
+      <if test="periodEndDate != null">
+        F_period_end_date = #{periodEndDate,jdbcType=DATE},
+      </if>
+      <if test="activityId != null">
+        F_activity_id = #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null">
+        F_bank_code = #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="promoterId != null">
+        F_promoter_id = #{promoterId,jdbcType=INTEGER},
+      </if>
+      <if test="sumAmount != null">
+        F_sum_amount = #{sumAmount,jdbcType=BIGINT},
+      </if>
+      <if test="sumRechargedQuota != null">
+        F_sum_recharged_quota = #{sumRechargedQuota,jdbcType=BIGINT},
+      </if>
+      <if test="quotaBalance != null">
+        F_quota_balance = #{quotaBalance,jdbcType=BIGINT},
+      </if>
+      <if test="sumBankSubsidyFee != null">
+        F_sum_bank_subsidy_fee = #{sumBankSubsidyFee,jdbcType=BIGINT},
+      </if>
+      <if test="sumQuotaDeduction != null">
+        F_sum_quota_deduction = #{sumQuotaDeduction,jdbcType=BIGINT},
+      </if>
+      <if test="sumSubsidyDisbursement != null">
+        F_sum_subsidy_disbursement = #{sumSubsidyDisbursement,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        F_create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        F_update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where F_id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.MarketQuotaPeriodSummary">
+    update t_market_quota_period_summary
+    set F_merchant_id = #{merchantId,jdbcType=VARCHAR},
+      F_merchant_name = #{merchantName,jdbcType=VARCHAR},
+      F_agent_id_1g = #{agentId1g,jdbcType=VARCHAR},
+      F_agent_id_1g_name = #{agentId1gName,jdbcType=VARCHAR},
+      F_agent_id = #{agentId,jdbcType=VARCHAR},
+      F_period = #{period,jdbcType=VARCHAR},
+      F_quota_period_type = #{quotaPeriodType,jdbcType=BIT},
+      F_period_begin_date = #{periodBeginDate,jdbcType=DATE},
+      F_period_end_date = #{periodEndDate,jdbcType=DATE},
+      F_activity_id = #{activityId,jdbcType=VARCHAR},
+      F_bank_code = #{bankCode,jdbcType=VARCHAR},
+      F_promoter_id = #{promoterId,jdbcType=INTEGER},
+      F_sum_amount = #{sumAmount,jdbcType=BIGINT},
+      F_sum_recharged_quota = #{sumRechargedQuota,jdbcType=BIGINT},
+      F_quota_balance = #{quotaBalance,jdbcType=BIGINT},
+      F_sum_bank_subsidy_fee = #{sumBankSubsidyFee,jdbcType=BIGINT},
+      F_sum_quota_deduction = #{sumQuotaDeduction,jdbcType=BIGINT},
+      F_sum_subsidy_disbursement = #{sumSubsidyDisbursement,jdbcType=BIGINT},
+      F_create_time = #{createTime,jdbcType=TIMESTAMP},
+      F_update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where F_id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

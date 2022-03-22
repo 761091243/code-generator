@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="generator/generator.properties"></properties>
+    <classPathEntry location="${jdbc.driverLocation}"/>
+    <context id="default" targetRuntime="MyBatis3">
+
+        <commentGenerator type="com.dunn.jdbc.MyCommentGenerator"></commentGenerator>
+        <jdbcConnection driverClass="${jdbc.driverClass}" connectionURL="${jdbc.connectionURL}" userId="${jdbc.userId}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+
+        <javaTypeResolver><property name="forceBigDecimals" value="false"/></javaTypeResolver>
+
+        <javaModelGenerator targetProject="${targetProject2Java}" targetPackage="com.bean">
+            <property name="constructorBased" value="false"/>
+            <property name="enableSubPackages" value="false"/>
+            <property name="immutable" value="false"/>
+            <property name="trimStrings" value="false"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetProject="${targetProject2XML}" targetPackage="com.xml">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetProject="${targetProject2Java}" targetPackage="com.mapper" type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+<!--        <table tableName="student">-->
+<!--            <domainObjectRenamingRule searchString="^T" replaceString=""/>-->
+<!--            <columnRenamingRule searchString="^F" replaceString=""/>-->
+<!--        </table>-->
+
+        <table tableName="t_market_quota_period_summary">
+            <domainObjectRenamingRule searchString="^T" replaceString=""/>
+            <columnRenamingRule searchString="^F" replaceString=""/>
+        </table>
+
+    </context>
+</generatorConfiguration>
